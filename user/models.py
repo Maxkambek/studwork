@@ -23,6 +23,13 @@ class AccountManager(BaseUserManager):
         return user
 
 
+STATUS_CHOISE = (
+    (1, 'Statussiz'),
+    (2, 'Ishga tayyor'),
+    (3, 'Band'),
+)
+
+
 class Account(AbstractBaseUser, PermissionsMixin):
     phone = models.CharField(max_length=14, unique=True, db_index=True)
     username = models.CharField(max_length=222, null=True)
@@ -33,6 +40,10 @@ class Account(AbstractBaseUser, PermissionsMixin):
     is_staff = models.BooleanField(default=False)
     date_login = models.DateTimeField(auto_now=True)
     date_created = models.DateTimeField(auto_now_add=True)
+    user_status = models.IntegerField(choices=STATUS_CHOISE, default=1)
+    is_pro = models.BooleanField(default=False)
+    com_percent = models.PositiveSmallIntegerField(default=22)
+    rating = models.PositiveIntegerField(default=0)
 
     objects = AccountManager()
     USERNAME_FIELD = 'phone'
