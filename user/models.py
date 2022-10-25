@@ -30,6 +30,21 @@ STATUS_CHOISE = (
 )
 
 
+class SubjectType(models.Model):
+    name = models.CharField(max_length=120)
+
+    def __str__(self):
+        return self.name
+
+
+class Subject(models.Model):
+    name = models.CharField(max_length=120)
+    subject_type = models.ForeignKey(SubjectType, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.name
+
+
 class Account(AbstractBaseUser, PermissionsMixin):
     phone = models.CharField(max_length=14, unique=True, db_index=True)
     username = models.CharField(max_length=222, null=True)
@@ -44,6 +59,7 @@ class Account(AbstractBaseUser, PermissionsMixin):
     is_pro = models.BooleanField(default=False)
     com_percent = models.PositiveSmallIntegerField(default=22)
     rating = models.PositiveIntegerField(default=0)
+    specialist = models.ManyToManyField(Subject)
 
     objects = AccountManager()
     USERNAME_FIELD = 'phone'
