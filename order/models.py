@@ -20,6 +20,7 @@ class Work(models.Model):
     price = models.PositiveIntegerField()
     is_faster = models.BooleanField(default=False)
     views = models.PositiveIntegerField(default=0)
+    is_open = models.BooleanField(default=True)
 
     def __str__(self):
         return self.name
@@ -27,6 +28,10 @@ class Work(models.Model):
     @property
     def get_comment_count(self):
         return self.work_comments.count()
+
+    @property
+    def get_click(self):
+        return self.work_click.count()
 
 
 class FileWork(models.Model):
@@ -45,3 +50,18 @@ class Comment(models.Model):
     def __str__(self):
         return f'{self.id}'
 
+
+class OtClick(models.Model):
+    work = models.ForeignKey(Work, on_delete=models.CASCADE, related_name='work_click')
+    user = models.ForeignKey(Account, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f'{self.id}'
+
+
+class TakenWork(models.Model):
+    work = models.OneToOneField(Work, on_delete=models.CASCADE)
+    doer = models.ForeignKey(Account, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.work.name

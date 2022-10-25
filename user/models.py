@@ -67,3 +67,15 @@ class Account(AbstractBaseUser, PermissionsMixin):
 
     def __str__(self):
         return f'{self.phone}'
+
+
+class VerifyPhone(models.Model):
+    class Meta:
+        verbose_name = ("Telefon raqamni tasdiqlash")
+        verbose_name_plural = ("Telefon raqam tasdiqlash")
+
+    phone = models.CharField(max_length=15, verbose_name="Telefon raqam")
+    code = models.CharField(max_length=10, verbose_name="Kod")
+
+    def __str__(self):
+        return self.phone
