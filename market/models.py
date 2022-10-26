@@ -22,6 +22,7 @@ class Market(models.Model):
     content = models.TextField()
     list_lit = models.TextField()
     is_top = models.BooleanField(default=False)
+    views = models.PositiveIntegerField(default=0)
 
     def __str__(self):
         return self.name
@@ -29,9 +30,9 @@ class Market(models.Model):
 
 class MarketFileDemo(models.Model):
     file = models.FileField(upload_to='market_files/')
-    market = models.ForeignKey(Market, on_delete=models.CASCADE)
+    market = models.ForeignKey(Market, on_delete=models.CASCADE, related_name='file_demo')
 
 
 class MarketFileDone(models.Model):
     file = models.FileField(upload_to='market_files/')
-    market = models.ForeignKey(Market, on_delete=models.CASCADE)
+    market = models.ForeignKey(Market, on_delete=models.CASCADE, related_name='file_done')

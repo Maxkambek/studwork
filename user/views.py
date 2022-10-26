@@ -169,5 +169,11 @@ class SubjectTypeListAPIView(generics.ListAPIView):
 
 
 class SubjectListAPIView(generics.ListAPIView):
-    queryset = Subject.objects.all()
     serializer_class = SubjectSerializer
+
+    def get_queryset(self):
+        queryset = Subject.objects.all()
+        pk = self.request.GET.get('id')
+        if pk:
+            queryset = queryset.filter(subject_type_id=pk)
+        return queryset

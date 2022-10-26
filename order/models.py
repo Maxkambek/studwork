@@ -26,6 +26,14 @@ class Work(models.Model):
         return self.name
 
     @property
+    def get_doer(self):
+        try:
+            phone = self.doer_work.doer.phone
+            return phone[:6]
+        except:
+            return None
+
+    @property
     def get_comment_count(self):
         return self.work_comments.count()
 
@@ -53,14 +61,14 @@ class Comment(models.Model):
 
 class OtClick(models.Model):
     work = models.ForeignKey(Work, on_delete=models.CASCADE, related_name='work_click')
-    user = models.ForeignKey(Account, on_delete=models.CASCADE)
+    user = models.ForeignKey(Account, on_delete=models.CASCADE, related_name='want_work')
 
     def __str__(self):
         return f'{self.id}'
 
 
 class TakenWork(models.Model):
-    work = models.OneToOneField(Work, on_delete=models.CASCADE)
+    work = models.OneToOneField(Work, on_delete=models.CASCADE, related_name='doer_work')
     doer = models.ForeignKey(Account, on_delete=models.CASCADE)
 
     def __str__(self):
