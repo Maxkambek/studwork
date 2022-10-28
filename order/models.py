@@ -67,7 +67,7 @@ class OtClick(models.Model):
         return f'{self.id}'
 
 
-class TakenWork(models.Model):
+class MyTakenWork(models.Model):
     work = models.OneToOneField(Work, on_delete=models.CASCADE, related_name='doer_work')
     doer = models.ForeignKey(Account, on_delete=models.CASCADE)
 

@@ -23,10 +23,23 @@ class QuestionListAPIView(generics.ListAPIView):
         return queryset
 
 
-class QuestionRUDAPIView(generics.RetrieveUpdateDestroyAPIView):
+class QuestionDeleteAPIView(generics.DestroyAPIView):
     queryset = Question.objects.all()
     serializer_class = QuestionSerializer
     permission_classes = [IsOwnerOrReadOnly]
+    lookup_field = 'pk'
+
+
+class QuestionUpdateAPIView(generics.UpdateAPIView):
+    queryset = Question.objects.all()
+    serializer_class = QuestionSerializer
+    permission_classes = [IsOwnerOrReadOnly]
+    lookup_field = 'pk'
+
+
+class QuestionDetailAPIView(generics.RetrieveAPIView):
+    queryset = Question.objects.all()
+    serializer_class = QuestionSerializer
     lookup_field = 'pk'
 
 
@@ -40,7 +53,13 @@ class AnswerListAPIView(generics.CreateAPIView):
     serializer_class = AnswerSerializer
 
 
-class AnswerRUDAPIView(generics.RetrieveUpdateDestroyAPIView):
+class AnswerDetailAPIView(generics.RetrieveAPIView):
+    queryset = Answer.objects.all()
+    serializer_class = AnswerSerializer
+    lookup_field = 'pk'
+
+
+class AnswerUpdateAPIView(generics.UpdateAPIView):
     queryset = Answer.objects.all()
     serializer_class = AnswerSerializer
     permission_classes = [IsOwnerOrReadOnly]

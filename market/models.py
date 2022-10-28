@@ -16,13 +16,14 @@ class Market(models.Model):
     name = models.CharField(max_length=221)
     work_type = models.ForeignKey(WorkType, on_delete=models.CASCADE)
     specialist = models.ForeignKey(Subject, on_delete=models.CASCADE)
-    uni_name = models.CharField(max_length=120)
+    univer_name = models.CharField(max_length=120)
     course = models.IntegerField(choices=COURSE, default=0)
     description = models.TextField()
     content = models.TextField()
     list_lit = models.TextField()
     is_top = models.BooleanField(default=False)
     views = models.PositiveIntegerField(default=0)
+    price = models.PositiveIntegerField(default=0)
 
     def __str__(self):
         return self.name

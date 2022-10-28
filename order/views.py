@@ -1,5 +1,5 @@
 from rest_framework.response import Response
-from .models import WorkType, TakenWork, Work, FileWork, Comment, OtClick
+from .models import WorkType, MyTakenWork, Work, FileWork, Comment, OtClick
 from . import serializers
 from rest_framework import generics, status
 
@@ -17,11 +17,22 @@ class WorkListAPIView(generics.ListAPIView):
         return queryset
 
 
-class WorkRUDAPIView(generics.RetrieveUpdateDestroyAPIView):
+class WorkUpdateAPIView(generics.UpdateAPIView):
     queryset = Work.objects.all()
     serializer_class = serializers.WorkSerializer
     lookup_field = 'pk'
 
+
+class WorkDetailAPIView(generics.RetrieveAPIView):
+    queryset = Work.objects.all()
+    serializer_class = serializers.WorkSerializer
+    lookup_field = 'pk'
+
+
+class WorkDeleteAPIView(generics.DestroyAPIView):
+    queryset = Work.objects.all()
+    serializer_class = serializers.WorkSerializer
+    lookup_field = 'pk'
 
 class WorkCreateAPIView(generics.CreateAPIView):
     queryset = Work.objects.all()
@@ -75,12 +86,12 @@ class MyWorksListAPIView(generics.ListAPIView):
     serializer_class = serializers.MyWorkSerializer
 
     def get_queryset(self):
-        queryset = TakenWork.objects.all()
+        queryset = MyTakenWork.objects.all()
         user = self.request.user
         queryset = queryset.filter(doer=user)
         return queryset
 
 
 class GiveWorkCreateAPIView(generics.CreateAPIView):
-    queryset = TakenWork.objects.all()
+    queryset = MyTakenWork.objects.all()
     serializer_class = serializers.TakenWorkSerializer

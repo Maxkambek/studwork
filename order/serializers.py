@@ -1,4 +1,4 @@
-from .models import WorkType, Work, Comment, FileWork, TakenWork, OtClick
+from .models import WorkType, Work, Comment, FileWork, MyTakenWork, OtClick
 from rest_framework import serializers
 from user.serializers import SubjectSerializer, UserSerializer
 
@@ -55,7 +55,7 @@ class CreateOtClickSerializer(serializers.ModelSerializer):
 
 class TakenWorkSerializer(serializers.ModelSerializer):
     class Meta:
-        model = TakenWork
+        model = MyTakenWork
         fields = ['id', 'doer', 'work']
 
 
@@ -63,5 +63,5 @@ class MyWorkSerializer(serializers.ModelSerializer):
     doer_work = WorkSerializer(many=True)
 
     class Meta:
-        model = TakenWork
+        model = MyTakenWork
         fields = ['id', 'doer', 'doer_work']

@@ -2,10 +2,14 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
-    path('list-questions/', views.QuestionListAPIView.as_view()),
-    path('create-question/', views.QuestionCreateAPIView.as_view()),
-    path('rud-question/<int:pk>/', views.QuestionRUDAPIView.as_view()),
-    path('list-answer/', views.AnswerListAPIView.as_view()),
-    path('create-answer/', views.AnswerCreateAPIView.as_view()),
-    path('rud-answer/<int:pk>/', views.AnswerRUDAPIView.as_view())
+    path('questions-list/', views.QuestionListAPIView.as_view()),
+    path('question-create/', views.QuestionCreateAPIView.as_view()),
+    path('question-detail/<int:pk>/', views.QuestionDetailAPIView.as_view()),
+    path('question-update/<int:pk>/', views.QuestionUpdateAPIView.as_view()),
+    path('question-delet/<int:pk>/', views.QuestionDeleteAPIView.as_view()),
+
+    path('answer-list/', views.AnswerListAPIView.as_view()),
+    path('answer-create/', views.AnswerCreateAPIView.as_view()),
+    path('answer-detail/<int:pk>/', views.AnswerDetailAPIView.as_view()),
+    path('answer-update/<int:pk>/', views.AnswerUpdateAPIView.as_view()),
 ]
