@@ -66,18 +66,18 @@ TEMPLATES = [
 WSGI_APPLICATION = 'config.wsgi.application'
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'main.db'),
-    }
     # 'default': {
-    #     'ENGINE': 'django.db.backends.postgresql',
-    #         'NAME': env.str('NAME'),
-    #         'USER': env.str('USER'),
-    #         'PASSWORD': env.str('PASSWORD'),
-    #         'HOST': 'localhost',
-    #         'PORT': "5432"
+    #     'ENGINE': 'django.db.backends.sqlite3',
+    #     'NAME': os.path.join(BASE_DIR, 'main.db'),
     # }
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'studwork_db',
+        'USER': 'postgres',
+        'PASSWORD': '0000',
+        'HOST': 'localhost',
+        'PORT': "5432"
+    }
 }
 
 AUTH_PASSWORD_VALIDATORS = [

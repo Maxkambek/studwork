@@ -12,13 +12,13 @@ class MarketSerializer(serializers.ModelSerializer):
 class MarketFileDemoSerializer(serializers.ModelSerializer):
     class Meta:
         model = MarketFileDemo
-        fields = ['id', 'file']
+        fields = ['id', 'market', 'file']
 
 
 class MarketFileDoneSerializer(serializers.ModelSerializer):
     class Meta:
         model = MarketFileDone
-        fields = ['id', 'file']
+        fields = ['id', 'market', 'file']
 
 
 class MarketListSerializer(serializers.ModelSerializer):

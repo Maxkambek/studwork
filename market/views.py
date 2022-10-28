@@ -1,5 +1,7 @@
 from rest_framework import generics, status
 from rest_framework.response import Response
+from rest_framework.authentication import TokenAuthentication
+from question.permissions import IsOwnerOrReadOnly
 from .models import Market, MarketFileDemo, MarketFileDone
 from .serializers import MarketFileDoneSerializer, MarketFileDemoSerializer, MarketSerializer, MarketListSerializer
 
@@ -16,6 +18,24 @@ class MarketListAPIView(generics.ListAPIView):
         if views:
             queryset = queryset.order_by('-views')
         return queryset
+
+
+class MarketDetailAPIView(generics.RetrieveAPIView):
+    serializer_class = MarketListSerializer
+    queryset = Market.objects.all()
+
+
+class MarketDeleteAPIView(generics.DestroyAPIView):
+    serializer_class = MarketListSerializer
+    queryset = Market.objects.all()
+    permission_classes = IsOwnerOrReadOnly
+
+
+class MarketUpdateAPIView(generics.UpdateAPIView):
+    serializer_class = MarketListSerializer
+    queryset = Market.objects.all()
+    permission_classes = [IsOwnerOrReadOnly]
+    authentication_classes = [TokenAuthentication]
 
 
 class MarketCreateAPIView(generics.CreateAPIView):
@@ -56,7 +76,3 @@ class MarketCreateView(generics.CreateAPIView):
         headers = self.get_success_headers(serializer.data)
         return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
 
-
-class MarketRUDAPIView(generics.RetrieveUpdateDestroyAPIView):
-    queryset = Market.objects.all()
-    serializer_class = MarketListSerializer
