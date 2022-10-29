@@ -73,8 +73,8 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'studwork_db',
-        'USER': 'postgres',
-        'PASSWORD': '0000',
+        'USER': env.str('DB_USER'),
+        'PASSWORD': env.str('DB_PASSWORD'),
         'HOST': 'localhost',
         'PORT': "5432"
     }
