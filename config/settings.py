@@ -29,7 +29,7 @@ INSTALLED_APPS = [
     'drf_yasg',
     'corsheaders',
     'market',
-    'order',
+    'project',
     'question',
     'user',
 ]

@@ -1,5 +1,5 @@
 from django.db import models
-from order.models import WorkType
+from project.models import WorkType
 from user.models import Subject, Account
 
 
