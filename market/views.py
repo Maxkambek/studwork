@@ -4,7 +4,7 @@ from rest_framework.authentication import TokenAuthentication
 from question.permissions import IsOwnerOrReadOnly
 from .models import Market, MarketFileDemo, MarketFileDone
 from .serializers import MarketFileDoneSerializer, MarketFileDemoSerializer, MarketSerializer, MarketListSerializer
-
+from rest_framework.permissions import IsAuthenticated
 
 class MarketListAPIView(generics.ListAPIView):
     serializer_class = MarketListSerializer
@@ -29,6 +29,7 @@ class MarketDeleteAPIView(generics.DestroyAPIView):
     serializer_class = MarketListSerializer
     queryset = Market.objects.all()
     permission_classes = IsOwnerOrReadOnly
+    authentication_classes = [TokenAuthentication]
 
 
 class MarketUpdateAPIView(generics.UpdateAPIView):
@@ -41,6 +42,8 @@ class MarketUpdateAPIView(generics.UpdateAPIView):
 class MarketCreateAPIView(generics.CreateAPIView):
     serializer_class = MarketSerializer
     queryset = Market.objects.all()
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAuthenticated]
 
 
 class MarketFileDemoCreateAPIView(generics.CreateAPIView):
@@ -56,6 +59,8 @@ class MarketFileDoneCreateAPIView(generics.CreateAPIView):
 class MarketCreateView(generics.CreateAPIView):
     serializer_class = MarketListSerializer
     queryset = Market.objects.all()
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAuthenticated]
 
     def create(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)

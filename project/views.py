@@ -2,6 +2,9 @@ from rest_framework.response import Response
 from .models import WorkType, MyTakenWork, Work, FileWork, Comment, OtClick
 from . import serializers
 from rest_framework import generics, status
+from question.permissions import IsOwnerOrReadOnly
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.authentication import TokenAuthentication
 
 
 class WorkTypeListAPIView(generics.ListAPIView):
@@ -21,6 +24,8 @@ class WorkUpdateAPIView(generics.UpdateAPIView):
     queryset = Work.objects.all()
     serializer_class = serializers.WorkSerializer
     lookup_field = 'pk'
+    permission_classes = [IsOwnerOrReadOnly,IsAuthenticated]
+    authentication_classes = [TokenAuthentication]
 
 
 class WorkDetailAPIView(generics.RetrieveAPIView):
@@ -33,10 +38,15 @@ class WorkDeleteAPIView(generics.DestroyAPIView):
     queryset = Work.objects.all()
     serializer_class = serializers.WorkSerializer
     lookup_field = 'pk'
+    permission_classes = [IsOwnerOrReadOnly,IsAuthenticated]
+    authentication_classes = [TokenAuthentication]
+
 
 class WorkCreateAPIView(generics.CreateAPIView):
     queryset = Work.objects.all()
     serializer_class = serializers.WorkSerializer
+    permission_classes = [IsAuthenticated]
+    authentication_classes = [TokenAuthentication]
 
     def create(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
@@ -57,6 +67,8 @@ class WorkCreateAPIView(generics.CreateAPIView):
 class CommentCreateAPIView(generics.CreateAPIView):
     queryset = Comment.objects.all()
     serializer_class = serializers.CommentSerializer
+    permission_classes = [IsAuthenticated]
+    authentication_classes = [TokenAuthentication]
 
 
 class CommentListAPIView(generics.ListAPIView):
@@ -67,10 +79,14 @@ class CommentListAPIView(generics.ListAPIView):
 class ClickCreateAPIView(generics.CreateAPIView):
     queryset = OtClick.objects.all()
     serializer_class = serializers.OtClickSerializer
+    permission_classes = [IsAuthenticated]
+    authentication_classes = [TokenAuthentication]
 
 
 class OtClickListAPIView(generics.ListAPIView):
     serializer_class = serializers.OtClickSerializer
+    permission_classes = [IsAuthenticated]
+    authentication_classes = [TokenAuthentication]
 
     def get_queryset(self):
         queryset = OtClick.objects.all()
@@ -84,6 +100,8 @@ class OtClickListAPIView(generics.ListAPIView):
 
 class MyWorksListAPIView(generics.ListAPIView):
     serializer_class = serializers.MyWorkSerializer
+    permission_classes = [IsAuthenticated]
+    authentication_classes = [TokenAuthentication]
 
     def get_queryset(self):
         queryset = MyTakenWork.objects.all()
@@ -95,3 +113,5 @@ class MyWorksListAPIView(generics.ListAPIView):
 class GiveWorkCreateAPIView(generics.CreateAPIView):
     queryset = MyTakenWork.objects.all()
     serializer_class = serializers.TakenWorkSerializer
+    permission_classes = [IsAuthenticated]
+    authentication_classes = [TokenAuthentication]
