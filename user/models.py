@@ -1,6 +1,7 @@
 from django.contrib.auth.base_user import BaseUserManager, AbstractBaseUser
 from django.contrib.auth.models import PermissionsMixin
 from django.db import models
+from django.utils.translation import gettext_lazy as _
 
 
 class AccountManager(BaseUserManager):
@@ -23,10 +24,10 @@ class AccountManager(BaseUserManager):
         return user
 
 
-STATUS_CHOISE = (
-    (1, 'Statussiz'),
-    (2, 'Ishga tayyor'),
-    (3, 'Band'),
+STATUS_CHOICE = (
+    (1, _('Statussiz')),
+    (2, _('Ishga tayyor')),
+    (3, _('Band')),
 )
 
 
@@ -55,7 +56,7 @@ class Account(AbstractBaseUser, PermissionsMixin):
     is_staff = models.BooleanField(default=False)
     date_login = models.DateTimeField(auto_now=True)
     date_created = models.DateTimeField(auto_now_add=True)
-    user_status = models.IntegerField(choices=STATUS_CHOISE, default=1)
+    user_status = models.IntegerField(choices=STATUS_CHOICE, default=1)
     is_pro = models.BooleanField(default=False)
     com_percent = models.PositiveSmallIntegerField(default=22)
     rating = models.PositiveIntegerField(default=0)
@@ -71,11 +72,11 @@ class Account(AbstractBaseUser, PermissionsMixin):
 
 class VerifyPhone(models.Model):
     class Meta:
-        verbose_name = ("Telefon raqamni tasdiqlash")
-        verbose_name_plural = ("Telefon raqam tasdiqlash")
+        verbose_name = _("Telefon raqamni tasdiqlash")
+        verbose_name_plural = _("Telefon raqam tasdiqlash")
 
-    phone = models.CharField(max_length=15, verbose_name="Telefon raqam")
-    code = models.CharField(max_length=10, verbose_name="Kod")
+    phone = models.CharField(max_length=15, verbose_name=_("Phone number"))
+    code = models.CharField(max_length=10, verbose_name=_("Code"))
 
     def __str__(self):
         return self.phone
